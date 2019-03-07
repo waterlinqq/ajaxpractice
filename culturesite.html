@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cultural Attractions</title>
+    <title>Public Arts</title>
     <style>
         *{
             margin: 0;
@@ -38,20 +38,17 @@
             text-shadow: 2px 2px 2px #444;
         }
         .select{
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            text-align: center;
             padding-top: 10px;
         }
         .select-area,.select-type{
-            
         }
         .content{
         }
 /*info*/
         .infoboxs{
             width: 90%;
-            margin:50px auto;
+            margin:20px auto;
             text-align: center;
         }
         .infoboxs-container{
@@ -127,8 +124,26 @@
             width: 600px;
         }
 
-
-
+        .paging {
+            text-align: center;
+            margin-bottom: 20px; 
+        }
+        .paging .paging-pages{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            list-style-type: none;
+            color: rgb(46, 151, 138);;
+            text-align: center;
+            line-height: 40px;
+            
+        }
+        .paging .paging-pages.active,
+        .paging .paging-pages:hover{
+            color: #fff;
+            cursor: pointer;
+            background-color:rgb(46, 151, 138);
+        }
 
         .modal{
             position: fixed;
@@ -238,7 +253,8 @@
     </div>
     <div class="content">   
         <div class="infoboxs"></div>
-        <div class="pages"></div>
+        <div class="paging"></div>
+      
         <div class="modal" style="display:none">
             <div class="modal-container">
                 <div class="modal-header">
