@@ -20,9 +20,11 @@
         .header{
             position: relative;
             width: 100%;
-            height: 100px;
-            background: #dfb47d ;
-            border-bottom: 2px solid #222
+            height: 200px;
+            background-image: url('./img/nav.jpg');
+            background-position: center;
+            background-size: cover;
+            border-bottom: 2px solid rgb(46, 151, 138)
 
         }
         .header .header-title{
@@ -58,18 +60,22 @@
             width: 330px;
             min-height: 300px;
             margin: 20px;
-            background-color: #e4dbd0;
             overflow: hidden;/*開啟bfc防止margin重疊*/
             vertical-align: text-top
         }
         .infoboxs-up{
             position: relative;
             width: 300px;
-            margin: 15px auto;
+            margin: 5px auto;
         }
         .infoboxs-up img{
+            object-fit: cover;
             width: 300px;
-            border: 1px solid #222
+            height: 270px;
+            outline: none;
+           
+          
+            
         }
         .infoboxs-up .info-name{
             position: absolute;
@@ -80,6 +86,7 @@
             text-shadow: 2px 2px 2px #222;
             font-size: 20px;
             font-weight: bold;
+            text-align: left;
         }
         .infoboxs-container .info-area{
             position: absolute;
@@ -94,6 +101,15 @@
         .infoboxs-down{
             text-align: left;
             padding: 0px 20px 20px 20px;
+            
+        }
+        .infoboxs-down .info-author,
+        .infoboxs-down .info-address {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 280px;
         }
         .info-modal{
             position: absolute;
@@ -135,14 +151,15 @@
         .modal-header{
             position: relative;
             height: 100px;
-            background: #dfb47d;
+            background: rgb(66, 171, 158);
             text-align: center;
         }
-        .modal-header .site-name{
+        .modal-header .art-name{
             color: #fff;
             font-size: 25px;
             line-height: 100px;
             font-weight: bold;
+            
         }
         .modal-header .close-button{
             position: absolute;
@@ -155,25 +172,47 @@
             color: #fff;
         }
         .modal-header .close-button:hover{
-            background-color: #e4dbd0;
+            background-color: rgb(86, 191, 178);
             cursor: pointer;
         }
         .modal-body{
-            padding: 0px 50px;
+            padding: 0px 50px 40px 50px;
+            border-bottom: 3px solid rgb(46, 151, 138);
 
         }
-        .modal-body .site-img{
+        .modal-body .art-img{
             display: block;
             margin: 20px auto;
             width: 100%;
         }
+        .modal-body>p::after{
+            
+        }
+        .modal-body>p{
+           border-bottom: 1px solid rgb(46, 151, 138);
+           padding: 20px 0;
+        }
+        .modal-body>p>b {
+            display: inline-block;
+            width: 20%;
+            color: rgb(46, 151, 138);
+            font-size: 20px;
+        }
         .modal-body>p>span{
-            padding: 0px 15px;
+            display:inline-block;
+            width: 80%;
+            font-size: 20px;
+        }
+
+        .modal-body .map {
+            text-align: center;
+            color: rgb(46, 151, 138);
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20px 0;
+            border: none;
         }
         
-
-
-
         .container{
             width: 80%;
             margin: 0 auto;
@@ -183,36 +222,41 @@
             display: table;
             clear: both;
         }
+        #google-map {
+            height: 400px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="header-title"><h1>文化部文化景觀</h1><h2>National Cultural Heritage</h2></div>
+        <div class="header-title"><h1>公共藝術景觀</h1><h2>Public Art</h2></div>
     </div>
     <div class="select">
         <select class="select-area"></select><span>地區</span>
-        <select class="select-type"></select><span>類別</span>
+        <select class="select-type"></select><span>熱門</span>
     </div>
     <div class="content">   
         <div class="infoboxs"></div>
         <div class="pages"></div>
-        <div class="modal" >
+        <div class="modal" style="display:none">
             <div class="modal-container">
                 <div class="modal-header">
-                    <h3 class="site-name">大坌坑文化</h3>
+                    <h3 class="art-name"></h3>
                     <span class="close-button">&times;</span>
                 </div>
                 <div class="modal-body">
-                    <img src="https://data.boch.gov.tw/old_upload/_upload/Assets_new/archeology/5206/photo/CE02%E6%96%B0%E5%8C%97%E5%B8%82%E5%8D%81%E4%B8%89%E8%A1%8C%E9%81%BA%E5%9D%80(1).JPG" alt="" class="site-img">
-                    <p><b>類別:</b><span class="site-type">文化遺跡</span></p>
-                    <p><b>地址:</b><span class="site-address">新北市板橋區大關</span></p>
-                    <p><b>級別:</b><span class="site-level">國定考股遺址</span></p>
-                    <p><b>所屬主觀機關:</b><span class="site-headcity">文化部</span></p>
-                    <p><b>所在地理區域:</b><span class="site-area-name">台北市松山區</span></p>
-                    <p><b>公告日期:</b><span class="site-register-date">2018-09-09</span></p>
-                    <div class="google-map"></div>
+                    <img src="" alt="" class="art-img">
+                    <p><b>作者</b><span class="art-author"></span></p>
+                    <p><b>時間</b><span class="art-year"></span></p>
+                    <p><b>介紹</b><span class="art-intro"></span></p>
+                    <p><b>所在地區</b><span class="art-area-name"></span></p>
+                    <p><b>作品地址</b><span class="art-address"></span></p>
+                    <p class="map">地圖</p>
+                    <div id="google-map"></div>
                 </div>
                 <div class="modal-footer"></div>
+                
             </div>
         </div>
     </div>
@@ -220,5 +264,7 @@
         <p class="copyright"></p>
     </div>
 </body>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCca04o_T80BRG_Tj__rkUmFBPXUuIyfnk&callback=initMap"> </script>
+
 <script src="js/main.js"></script>
 </html>

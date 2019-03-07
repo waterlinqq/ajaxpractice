@@ -1,14 +1,14 @@
 var noDataText = "沒有提供資料"
 
-var siteData =""
-function getSiteData(){
+var artData =""
+function getArtData(){
     var xhr = new XMLHttpRequest();
-    xhr.open("GET","./data/site.json",true);
+    xhr.open("GET","./data/publicArt.json",true);
     xhr.send(null);
     xhr.onreadystatechange = function(){
         if( xhr.status == 0){
-            siteData = JSON.parse(xhr.responseText);
-            selectArea("基隆市")
+            artData = JSON.parse(xhr.responseText);
+            selectArea()
         }else{
             document.querySelector(".infoboxs").innerHTML = "<p>資料取得時發生錯誤，請重新整理頁面</p>"
         }
@@ -18,71 +18,87 @@ function getSiteData(){
 function selectArea(areaName){
     
     areaName = document.querySelector(".select-area").selectedOptions[0].text
-    setSiteData(areaName)
+    setArtData(areaName)
 }
 
 
-var nowSiteData = []
-function setSiteData(areaName){
-    nowSiteData = []
-    for( i = 0; i < siteData.length; i++){
-        var dataName = siteData[i].name || noDataText;
-        var dataType = siteData[i].typeName || noDataText;
-        var dataAddress = siteData[i].address || noDataText;
-        var dataLevel = siteData[i].level || noDataText;
-        var dataHeadCity = siteData[i].headCityName || noDataText;
-        var dataAreaName = siteData[i].cityName || noDataText;
-        var dataRegisterDate = siteData[i].registerDateValue || noDataText;
-        var dataSiteNo = siteData[i].mainTypePk || noDataText;
-        var dataImgUrl = "https://data.boch.gov.tw/old_upload/_upload/Assets_new/archeology/5206/photo/CE02%E6%96%B0%E5%8C%97%E5%B8%82%E5%8D%81%E4%B8%89%E8%A1%8C%E9%81%BA%E5%9D%80(1).JPG"
+var nowArtData = []
+function setArtData(areaName){
+    nowArtData = []
+    for( i = 0; i < artData.length; i++){
+        var dataName = artData[i].name || noDataText;
+        var dataIntro = artData[i].intro || noDataText;
+        var dataAddress = artData[i].address || noDataText;
+        var dataAuthor = artData[i].author || noDataText;
+        var dataYear = artData[i].buildingYearName || noDataText;
+        var dataAreaName = artData[i].cityName || noDataText;
+        var dataHitRate = artData[i].hitRate || noDataText;
+        var dataArtNo = artData[i].mainTypePk || noDataText;
+        var dataLongitude = artData[i].longitude|| noDataText;
+        var dataLatitude = artData[i].latitude || noDataText;
+        var dataImgUrl = artData[i].representImage || './img/replacePicture.jpg';
         if( dataAreaName == areaName){
-            nowSiteData.push({
+            nowArtData.push({
                 "dataName": dataName,
-                "dataType": dataType,
+                "dataIntro": dataIntro,
                 "dataAddress": dataAddress,
-                "dataLevel": dataLevel,
-                "dataHeadCity": dataHeadCity,
+                "dataAuthor": dataAuthor,
+                "dataYear": dataYear,
                 "dataAreaName": dataAreaName,
-                "dataRegisterDate": dataRegisterDate,
-                "dataSiteNo": dataSiteNo,
-                "dataImgUrl": dataImgUrl
+                "dataHitRate": dataHitRate,
+                "dataArtNo": dataArtNo,
+                "dataImgUrl": dataImgUrl,
+                "dataLongitude": dataLongitude,
+                "dataLatitude":　dataLatitude
             })
         }
     }
-    createView()
+    createArtBoxes()
 }
-function showModal(siteNo){
-    for( var i = 0; i < nowSiteData.length; i++){
-        if( siteNo == nowSiteData[i].dataSiteNo){
-            document.querySelector(".site-name").textContent =  nowSiteData[i].dataName;
-            document.querySelector(".site-type").textContent =  nowSiteData[i].dataType;
-            document.querySelector(".site-address").textContent =  nowSiteData[i].dataAddress;
-            document.querySelector(".site-level").textContent =  nowSiteData[i].dataLevel;
-            document.querySelector(".site-headcity").textContent =  nowSiteData[i].dataHeadCity;
-            document.querySelector(".site-area-name").textContent =  nowSiteData[i].dataAreaName;
-            document.querySelector(".site-register-date").textContent =  nowSiteData[i].dataRegisterDate;
-            document.querySelector(".modal-body img").setAttribute("src",nowSiteData[i].dataImgUrl);
+function showModal(artNo){
+    for( var i = 0; i < nowArtData.length; i++){
+        if( artNo == nowArtData[i].dataArtNo){
+            document.querySelector(".art-name").textContent =  nowArtData[i].dataName;
+            document.querySelector(".art-intro").textContent =  nowArtData[i].dataIntro;
+            document.querySelector(".art-address").textContent =  nowArtData[i].dataAddress;
+            document.querySelector(".art-author").textContent =  nowArtData[i].dataAuthor;
+            document.querySelector(".art-year").textContent =  nowArtData[i].dataYear;
+            document.querySelector(".art-area-name").textContent =  nowArtData[i].dataAreaName;
+            document.querySelector(".modal-body img").setAttribute("src",nowArtData[i].dataImgUrl);
+            initMap(parseFloat(nowArtData[i].dataLatitude), parseFloat(nowArtData[i].dataLongitude))
         }
     }
     document.querySelector(".modal").style.display = "block";
 } 
 
+function initMap(lat,lng) {
+    var location = {lat: lat, lng: lng};
+    var map = new google.maps.Map(document.getElementById('google-map'), {
+      zoom: 15,
+      center: location
+    });
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+  }
 
-function createView(){
+
+function createArtBoxes(){
     var infoBoxContainer = ""
-    for(var i = 0; i < nowSiteData.length; i++){
+    for(var i = 0; i < nowArtData.length; i++){
         infoBoxContainer +=  
         '<div class="infoboxs-container">'+
             '<div class="infoboxs-up">'+
-                '<img src="' + nowSiteData[i].dataImgUrl + '" alt="" class="info-img">'+
-                '<p class="info-name">' + nowSiteData[i].dataName+ '</p>'+
-                '<p class="info-area">' + nowSiteData[i].dataAreaName + '</p>'+
+                '<img src="' + nowArtData[i].dataImgUrl + '" alt="" class="info-img">'+
+                '<p class="info-name">' + nowArtData[i].dataName+ '</p>'+
+                '<p class="info-area">' + nowArtData[i].dataAreaName + '</p>'+
             '</div>'+
             '<div class="infoboxs-down">'+
-                '<p class="info-address"><b>地址:</b>' + nowSiteData[i].dataAddress + '</p>'+
-                '<p class="info-type"><b>類別:</b>' + nowSiteData[i].dataType + '</p>'+
+                '<p class="info-author"><b>&nbsp;作者：</b>&nbsp;' + nowArtData[i].dataAuthor + '</p>'+
+                '<p class="info-address"><b>&nbsp;地址：</b>&nbsp;' + nowArtData[i].dataAddress + '</p>'+
             '</div>'+
-            '<a class="info-modal" href="javascript:;" data-siteNo="' + nowSiteData[i].dataSiteNo + '"></a>'+
+            '<a class="info-modal" href="javascript:;" data-artNo="' + nowArtData[i].dataArtNo + '"></a>'+
         '</div>'
     };
     document.querySelector(".infoboxs").innerHTML = infoBoxContainer
@@ -104,7 +120,7 @@ function createAreaSelect(){
         selectAreaEle.innerHTML += "<option value='" + areaName[i] + "'>"+areaName[i]+"</option>"
     }
     //繼續默認顯示 但先獲取撈資料
-    getSiteData()
+    getArtData()
 }
 //監聽選框 如有更動 執行
 function listenAreaSelect(){
@@ -116,10 +132,14 @@ function setInfoModal() {
     var infoModalEle = document.querySelectorAll('.info-modal');
     for (var i = 0; i < infoModalEle.length; i++) {
         infoModalEle[i].addEventListener('click', function(e) {
-            showModal(e.target.getAttribute('data-siteNo'));
+            showModal(e.target.getAttribute('data-artNo'));
         }, false);
     }
 }
-listenAreaSelect()
+
+
+listenAreaSelect();
 listenModalClose();
+
+/*setTimeout(createAreaSelect,5000)*/
 createAreaSelect();
