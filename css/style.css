@@ -1,0 +1,234 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: "Segoe UI","微軟正黑體",sans-serif;
+    color: #222;
+    background-color: rgb(245,245,245);
+}
+.clearfix::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+/*header */
+.header{
+    width: 100%;
+    height: 300px;
+    background-image: url('../img/nav.jpg');
+    background-size: cover;
+    border-bottom: 2px solid rgb(46, 151, 138)
+}
+.header .header-title{
+    transform: translateY(calc(150px - 50%));
+    text-align: center;
+    font: bold;
+    color: #eee;
+    text-shadow: 2px 2px 2px #444;
+}
+/* select */
+.select{
+    text-align: center;
+    padding-top: 10px;
+}
+.select span{
+    padding-right: 20px;
+}
+/*content*/
+.infoboxs{
+    margin:20px auto;
+    text-align: center;
+}
+.infoboxs-container{
+    position: relative;/*提供infomodal遮罩定位*/
+    display: inline-block;
+    width: 300px;
+    margin: 20px;
+    background-color: #f0f0f0;
+}
+
+@media only screen and (max-width:30em){
+    .infoboxs-container{
+    margin: 20px 0;
+    }
+}
+.infoboxs-up{
+    position: relative;
+    width: 300px;
+    overflow: hidden;
+}
+.infoboxs-up img{
+    object-fit: cover;/*縮放置符合大小並覆蓋滿*/
+    width: 300px;
+    height: 270px;
+    transition: 1s;
+}
+.infoboxs-up .info-name,
+.infoboxs-container .info-area{
+    /*margin-top: -50px; 兩個margin不一樣??*/
+    /*transform: translateY(-60px); 會佔據原空間*/
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+     /*text-indent: 20px;換行就沒對齊*/
+    text-align: left;
+    color: rgba(255,255,255,.9);
+    text-shadow: 2px 2px 2px #222;
+    font-size: 20px;
+    font-weight: bold;
+}
+.infoboxs-container .info-area{
+    bottom: 15px;/*覆蓋bottom: 40px*/
+}
+.infoboxs-down{
+    text-align: left;
+    padding-bottom: 20px;   
+}
+.infoboxs-down .info-author,
+.infoboxs-down .info-address {
+    text-indent: 20px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 280px;
+}
+.info-modal{
+    position: absolute;
+    z-index: 2;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: block;
+    transition: 0.6s;
+}
+.info-modal:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+
+.info-modal:hover+div img {
+    transform: scale(1.2)
+}
+
+.paging {
+    text-align: center;
+    margin-bottom: 20px; 
+}
+.paging .paging-pages{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    list-style-type: none;
+    color: rgb(46, 151, 138);;
+    text-align: center;
+    line-height: 40px;
+    transition: 0.3s;
+    
+}
+.paging .paging-pages.active,
+.paging .paging-pages:hover{
+    color: #fff;
+    cursor: pointer;
+    background-color:rgb(46, 151, 138);
+}
+
+.modal{
+    z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 10px 30px;
+    background-color: rgba(255,255,255,0.3);
+    overflow: auto; 
+}
+.modal-container{
+   max-width: 600px;
+   margin: 10px auto;
+   overflow: hidden;
+   background: #fff;
+}
+.modal-header{
+    position: relative;
+    height: 100px;
+    background: rgb(66, 171, 158);
+    text-align: center;
+}
+.modal-header .art-name{
+    line-height: 100px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+.modal-header .close-button{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    color: #fff;
+}
+.modal-header .close-button:hover{
+    background-color: rgb(86, 191, 178);
+    cursor: pointer;
+}
+.modal-body{
+    padding: 0px 50px 40px 50px;
+    border-bottom: 3px solid rgb(46, 151, 138);
+}
+.modal-body .art-img{
+    margin: 20px auto;
+    width: 100%;
+}
+
+.modal-body>p{
+   border-bottom: 1px solid rgb(46, 151, 138);
+   padding: 20px 0;
+}
+.modal-body>p>b {
+    display: inline-block;
+    width: 20%;
+    color: rgb(46, 151, 138);
+    font-size: 20px;
+    vertical-align: top;
+}
+.modal-body>p>span{
+    display:inline-block;
+    width: 80%;
+    font-size: 20px;
+}
+@media only screen and (max-width:40em){
+    .modal-body{
+        padding: 0px 10px 40px 10px;
+    }
+    .modal-body>p{
+        text-align: center;
+        padding: 10px 0;
+    }
+    .modal-body>p>b {
+        display: block;
+        width: 100%;
+    }
+    .modal-body>p>span{
+        width: 100%;
+    }
+}
+.modal-body .map {
+    text-align: center;
+    color: rgb(46, 151, 138);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 0;
+    border: none;
+}
+#google-map {
+    height: 400px;
+    width: 100%;
+}

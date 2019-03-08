@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Public Arts</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-title"><h1>公共藝術景觀</h1><h2>Public Art</h2></div>
+    </div>
+    <div class="select">
+        <select class="select-area"></select><span>選擇地區</span>
+        <select class="select-sort">
+            <option value="hit">點擊次數</option>
+            <option value="year">創作時間</option>
+        </select><span>選擇排序</span>
+    </div>
+    <div class="content">   
+        <div class="infoboxs"></div>
+        <div class="paging"></div>
+      
+        <div class="modal" style="display:none">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3 class="art-name"></h3>
+                    <span class="close-button">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="" class="art-img">
+                    <p><b>作者</b><span class="art-author"></span></p>
+                    <p><b>時間</b><span class="art-year"></span></p>
+                    <p><b>介紹</b><span class="art-intro"></span></p>
+                    <p><b>所在地區</b><span class="art-area-name"></span></p>
+                    <p><b>作品地址</b><span class="art-address"></span></p>
+                    <p class="map">地圖</p>
+                    <div id="google-map"></div>
+                </div>
+                <div class="modal-footer"></div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p class="copyright"></p>
+    </div>
+</body>
+ 
+<script src="js/main.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCca04o_T80BRG_Tj__rkUmFBPXUuIyfnk&callback=initMap"></script>
+</html>
+
